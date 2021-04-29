@@ -1,0 +1,76 @@
+*{
+    text-align: center;
+}
+/*棋盘样式*/
+#chess{
+    position: relative;
+    margin: 50px auto;
+    padding: 15px;
+    width:420px;
+    height: 420px;
+    border:1px solid red;
+}
+
+
+/*棋盘格样式*/
+#chess>.chessboard{
+    float: left;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #BFBFBF;
+}
+
+/*黑棋子样式*/
+#chess .black_piece{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    margin-left: -13px;
+    margin-top: -13px;
+    border-radius: 50%;
+    background:radial-gradient(circle farthest-side ,#636766,#0A0A0A);
+
+}
+
+/*白棋子样式*/
+#chess .white_piece{
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    margin-left: -13px;
+    margin-top: -13px;
+    border-radius: 50%;
+    background:radial-gradient(circle farthest-side ,#F9F9F9,#D1D1D1);
+
+}
+.btn_group{
+    margin: 0 auto;
+}
+.btn{
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    float: left;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    margin-right: 5px;
+}
+#btn_switch{
+    background-color: skyblue;
+}
+#btn_switch a{
+    color: #333;
+    text-decoration:none;
+}
+#remake{
+    background-color: lightgreen;
+}
+#reChess{
+    background-color: lightgoldenrodyellow;
+}
+#deReChess{
+    background-color: lightcoral;
+}

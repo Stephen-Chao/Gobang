@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>五子棋</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
+    <h1>Canvas实现的五子棋</h1>
+    <canvas id="chess" width="450px" height="450px">你的浏览器不支持HTML5 canvas,请使用最新版Chrome浏览器打开.</canvas>
+    <div>
+        <button class="btn" id="remake" onclick="remake()">重新开始</button>
+        <button class="btn" id="reChess">悔棋</button>
+        <button class="btn" id="deReChess">撤销悔棋</button>
+        <button class="btn" id="btn_switch"><a href="../DOM/index.html">切换为DOM模式</a></button>
+    </div>
+<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
