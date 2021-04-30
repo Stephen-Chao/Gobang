@@ -72,5 +72,6 @@
     background-color: lightgoldenrodyellow;
 }
 #deReChess{
-    background-color: lightcoral;
+    background-color: #999;
+    cursor: not-allowed;
 }

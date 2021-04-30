@@ -45,7 +45,7 @@
 
 }
 .btn_group{
-    margin: 50px auto;
+    margin: 0 auto;
 }
 .btn{
     padding: 10px 16px;
@@ -72,5 +72,6 @@
     background-color: lightgoldenrodyellow;
 }
 #deReChess{
-    background-color: lightcoral;
+    background-color: #999;
+    cursor: not-allowed;
 }

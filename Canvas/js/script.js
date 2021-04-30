@@ -2,6 +2,8 @@
 var chessBoard=[];//二维数组用来保存棋盘信息，0为没有走过的，1为黑棋，2为白棋
 var currentChess=true;//目前正要下的棋子的颜色，初始化为true表示黑子棋子。false表示白色棋子
 var over=false;//标志游戏是否结束，有一方赢了就表示结束
+var currentChessX = 0;// 记录最新棋子x
+var currentChessY = 0; //记录最新棋子y
 
 //赢法数组，用来记录所有可能的赢法方案，
 var wins=[];
@@ -80,7 +82,7 @@ for (var i = 0; i < count; i++) {
 var chess=document.getElementById('chess');
 var context=chess.getContext('2d');
 context.strokeStyle="#BFBFBF";
-
+var imgData = chess; //记录当前画布上的图像
 /*画棋盘格14*14格*/
 function drawChessBoard() {
     for (var i = 0; i < 15; i++) {
@@ -99,6 +101,9 @@ function drawChessBoard() {
 @para j 纵向第j个格子线
 */
 function drawChess(i,j){
+    var width = chess.width;
+    var height = chess.height;
+    imgData = context.getImageData(0, 0, width, height)
     context.beginPath();
     context.arc(15+i*30,15+j*30,13,0,2*Math.PI);
     context.closePath();
@@ -132,6 +137,8 @@ chess.onclick=function(e){
     var i=Math.floor(x/30);
     var j=Math.floor(y/30);
 
+    currentChessX = i;
+    currentChessY = j;
     if (chessBoard[i][j]===0) {//在画棋子之前先判断一下棋盘上该位置是否已经有了棋子，为空时才允许放置
         drawChess(i,j);//画棋子
         if (currentChess) {//如果放下的棋子为黑棋
@@ -141,7 +148,7 @@ chess.onclick=function(e){
                     blackWin[k]++;
                     whiteWin[k]=undefined;
                     if (blackWin[k]===5) {//如果黑棋在第k中赢法中已经有了5颗棋子，说明黑棋赢了
-                        window.alert("黑棋赢了，真是走了狗屎运！");
+                        window.alert("黑棋赢！");
                         over=true;
                     }
                 }
@@ -153,13 +160,21 @@ chess.onclick=function(e){
                     whiteWin[k]++;
                     blackWin[k]=undefined;
                     if (whiteWin[k]===5) {//如果白棋在第k中赢法中已经有了5颗棋子,说明白棋赢了
-                        window.alert("白棋赢了，真是走了狗屎运！");
+                        window.alert("白棋赢！");
                         over=true;
                     }
                 }
             }
         }
         currentChess=!currentChess;//将下一步棋的颜色进行反转
+        if(document.getElementById('deReChess').disabled==false){
+            document.getElementById('deReChess').setAttribute("disabled",true);
+            document.getElementById('deReChess').style.cursor='not-allowed';
+            document.getElementById('deReChess').style.background='#999';
+            document.getElementById('reChess').disabled=false;
+            document.getElementById('reChess').style.cursor='pointer';
+            document.getElementById('reChess').style.background='lightgoldenrodyellow';
+        }
     }
 }
 
@@ -168,8 +183,53 @@ drawChessBoard();
 
 //重新开始
 function remake(){
-    location.reload()
+    location.reload() //刷新以重新开始
 }
+//悔棋
+function reChess(){
+        var width = chess.width;
+        var height = chess.height;
+        var beforeRegret = context.getImageData(0, 0, width, height) //保存悔棋前
+        context.putImageData(imgData,0,0); //恢复下棋前图片
+        imgData = beforeRegret
+        //减少赢子的个数
+        if (currentChess) {//如果放下的棋子为黑棋
+            for (var k = 0; k <count; k++) {//遍历所有赢法
+                if (wins[currentChessX][currentChessY][k]) {
+                    blackWin[k]--;
+                    whiteWin[k]=undefined;
+                }
+            }
+        }else{//如果放下的棋子为白棋
+            for (var k = 0; k <count; k++) {
+                if (wins[currentChessX][currentChessY][k]) {
+                    whiteWin[k]--;
+                    blackWin[k]=undefined;
+                }
+            }
+        }
+        chessBoard[currentChessX][currentChessY] = 0
+        currentChess=!currentChess;//将下一步棋的颜色进行反转
+        document.getElementById('reChess').setAttribute("disabled",true);
+        document.getElementById('reChess').style.cursor='not-allowed';
+        document.getElementById('reChess').style.background='#999';
+        document.getElementById('deReChess').disabled=false;
+        document.getElementById('deReChess').style.cursor='pointer';
+        document.getElementById('deReChess').style.background='lightcoral';
+        console.log('执行结束')
+}
+
+//撤销悔棋
+function deReChess_1(){
+    reChess();
+    document.getElementById('deReChess').setAttribute("disabled",true);
+    document.getElementById('deReChess').style.cursor='not-allowed';
+    document.getElementById('deReChess').style.background='#999';
+    document.getElementById('reChess').disabled=false;
+    document.getElementById('reChess').style.cursor='pointer';
+    document.getElementById('reChess').style.background='lightgoldenrodyellow';
+}
+
 
 
 
