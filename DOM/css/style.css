@@ -46,13 +46,14 @@
 }
 .btn_group{
     margin: 0 auto;
+    /*border: 1px solid #000;*/
 }
 .btn{
     padding: 10px 16px;
     font-size: 18px;
     line-height: 1.3333333;
     border-radius: 6px;
-    float: left;
+    /*float: left;*/
     color: #333;
     background-color: #fff;
     border-color: #ccc;
